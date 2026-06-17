@@ -4,11 +4,11 @@ using DeliverySystem.Api.Users.Infrastructure;
 
 namespace DeliverySystem.Api.Users;
 
-internal sealed class LoginUser(AppDbContext context, PasswordHasher passwordHasher)
+internal sealed class LoginUser(AppDbContext context, PasswordHasher passwordHasher, TokenProvider tokenProvider)
 {
     public sealed record Request(string Email, string Password);
 
-    public async Task<User> Handle(Request request)
+    public async Task<string> Handle(Request request)
     {
         User? user = await context.Users.GetByEmail(request.Email);
 
@@ -23,7 +23,9 @@ internal sealed class LoginUser(AppDbContext context, PasswordHasher passwordHas
         {
             throw new Exception("The password is incorrect");
         }
+
+        var token = tokenProvider.Create(user);
         
-        return user;
+        return token;
     }
 }
