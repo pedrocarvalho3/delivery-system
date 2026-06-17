@@ -1,0 +1,20 @@
+namespace DeliverySystem.Api.Users;
+
+internal static class UserEndpoints
+{
+    private const string Tag = "Users";
+    private const string VerifyEmail = "verifyEmail";
+
+    public static IEndpointRouteBuilder Map(IEndpointRouteBuilder builder)
+    {
+        builder.MapPost("users/register", async (RegisterUser.Request request, RegisterUser useCase) =>
+                await useCase.Handle(request))
+                .WithTags(Tag);
+        
+        builder.MapPost("users/login", async (LoginUser.Request request, LoginUser useCase) => 
+                await useCase.Handle(request))
+                .WithTags(Tag);
+        
+        return builder;
+    }
+}
