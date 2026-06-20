@@ -6,7 +6,7 @@ internal sealed class PasswordHasher
 {
     private const int SaltSize = 16;
     private const int HashSize = 32;
-    private const int Iterations = 10000;
+    private const int Iterations = 100000;
     
     private static readonly HashAlgorithmName Algorithm = HashAlgorithmName.SHA512;
 
@@ -26,6 +26,6 @@ internal sealed class PasswordHasher
         
         byte[] inputHash = Rfc2898DeriveBytes.Pbkdf2(password, salt, Iterations, Algorithm, HashSize);
         
-        return CryptographicOperations.FixedTimeEquals(hash, salt);
+        return CryptographicOperations.FixedTimeEquals(hash, inputHash);
     }
 }
