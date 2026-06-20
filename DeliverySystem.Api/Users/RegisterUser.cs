@@ -6,8 +6,10 @@ namespace DeliverySystem.Api.Users;
 internal sealed class RegisterUser(AppDbContext context, PasswordHasher passwordHasher)
 {
     public sealed record Request(string Email, string Password, string FirstName, string LastName);
+    
+    public sealed record Response(Guid Id, string Email, string FirstName, string LastName);
 
-    public async Task<User> Handle(Request request)
+    public async Task<Response> Handle(Request request)
     {
         if (await context.Users.Exists(request.Email))
         {
@@ -25,6 +27,6 @@ internal sealed class RegisterUser(AppDbContext context, PasswordHasher password
 
         context.Add(user);
         await context.SaveChangesAsync();
-        return user;
+        return new Response(user.Id, user.Email, user.FirstName, user.LastName);
     }
 }
