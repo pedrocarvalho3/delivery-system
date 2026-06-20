@@ -10,9 +10,8 @@ using Microsoft.IdentityModel.Tokens;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-{
-    options.UseInMemoryDatabase("DeliverySystemDb");
-});
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddSingleton<PasswordHasher>();
 builder.Services.AddSingleton<TokenProvider>();
