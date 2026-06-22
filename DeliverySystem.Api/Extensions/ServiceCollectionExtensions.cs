@@ -11,17 +11,23 @@ internal static  class ServiceCollectionExtensions
         {
             o.CustomSchemaIds(id => id.FullName!.Replace("+", "-"));
 
+            const string securitySchemeName = JwtBearerDefaults.AuthenticationScheme;
+
             var securityScheme = new OpenApiSecurityScheme
             {
-                Name = "JWT Authentication",
-                Description = "Enter your JWT token in this field",
+                Name = "Authorization",
+                Description = "Enter the JWT token without the 'Bearer' prefix.",
                 In = ParameterLocation.Header,
                 Type = SecuritySchemeType.Http,
-                Scheme = JwtBearerDefaults.AuthenticationScheme,
+                Scheme = "bearer",
                 BearerFormat = "JWT"
             };
             
-            o.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, securityScheme);
+            o.AddSecurityDefinition(securitySchemeName, securityScheme);
+            o.AddSecurityRequirement(document => new OpenApiSecurityRequirement
+            {
+                [new OpenApiSecuritySchemeReference(securitySchemeName, document)] = []
+            });
         });
         
         return services;

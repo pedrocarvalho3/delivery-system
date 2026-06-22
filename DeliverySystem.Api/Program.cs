@@ -27,9 +27,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         o.RequireHttpsMetadata = false;
         o.TokenValidationParameters = new TokenValidationParameters
         {
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"])),
-            ValidIssuer = builder.Configuration["Jwt:Issuers"],
-            ValidAudience = builder.Configuration["Jwt:Audiences"],
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(
+                    builder.Configuration["Jwt:SecretKey"]
+                    ?? throw new InvalidOperationException("Jwt:SecretKey is not configured."))),
+            ValidateIssuer = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidateAudience = true,
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            ValidateLifetime = true
         };
     });
 
@@ -52,11 +59,10 @@ app.UseHttpsRedirection();
 app.UseSwagger();
 app.UseSwaggerUI();
 
+app.UseAuthentication();
+app.UseAuthorization();
+
 UserEndpoints.Map(app);
 RestaurantEndpoints.Map(app);
-
-app.UseAuthentication();
-
-app.UseAuthorization();
 
 app.Run();

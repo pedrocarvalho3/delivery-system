@@ -9,7 +9,8 @@ internal sealed class TokenProvider(IConfiguration configuration)
 {
     public string Create(User user)
     {
-        string secretKey = configuration["Jwt:SecretKey"];
+        string secretKey = configuration["Jwt:SecretKey"]
+            ?? throw new InvalidOperationException("Jwt:SecretKey is not configured.");
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
