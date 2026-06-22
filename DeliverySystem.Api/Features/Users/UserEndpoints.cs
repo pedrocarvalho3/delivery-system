@@ -3,7 +3,6 @@ namespace DeliverySystem.Api.Features.Users;
 internal static class UserEndpoints
 {
     private const string Tag = "Users";
-    private const string VerifyEmail = "verifyEmail";
 
     public static IEndpointRouteBuilder Map(IEndpointRouteBuilder builder)
     {

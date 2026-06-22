@@ -1,4 +1,5 @@
 using System.Text;
+using DeliverySystem.Api.Features.Restaurants;
 using DeliverySystem.Api.Features.Users;
 using DeliverySystem.Database;
 using DeliverySystem.Api.Features.Users.Infrastructure;
@@ -35,6 +36,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddScoped<RegisterUser>();
 builder.Services.AddScoped<LoginUser>();
 
+builder.Services.AddScoped<ListRestaurants>();
+
 var app = builder.Build();
 
 // using (var scope = app.Services.CreateScope())
@@ -50,6 +53,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 UserEndpoints.Map(app);
+RestaurantEndpoints.Map(app);
 
 app.UseAuthentication();
 
