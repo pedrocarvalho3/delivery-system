@@ -1,5 +1,6 @@
 using DeliverySystem.Api.Features.Users;
 using DeliverySystem.Api.Features.Restaurants;
+using DeliverySystem.Features.Products;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeliverySystem.Database;
@@ -12,4 +13,5 @@ public class AppDbContext : DbContext
     
     public DbSet<User> Users => Set<User>();
     public DbSet<Restaurant> Restaurants => Set<Restaurant>();
+    public DbSet<Product> Products => Set<Product>();
 }
