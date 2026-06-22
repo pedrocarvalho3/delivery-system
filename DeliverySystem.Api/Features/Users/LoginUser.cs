@@ -1,8 +1,8 @@
 using DeliverySystem.Database;
 using Microsoft.AspNetCore.Identity;
-using DeliverySystem.Api.Users.Infrastructure;
+using DeliverySystem.Api.Features.Users.Infrastructure;
 
-namespace DeliverySystem.Api.Users;
+namespace DeliverySystem.Api.Features.Users;
 
 internal sealed class LoginUser(AppDbContext context, PasswordHasher passwordHasher, TokenProvider tokenProvider)
 {

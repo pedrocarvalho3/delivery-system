@@ -1,5 +1,5 @@
-using DeliverySystem.Api.Users;
-using DeliverySystem.Features.Restaurants;
+using DeliverySystem.Api.Features.Users;
+using DeliverySystem.Api.Features.Restaurants;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeliverySystem.Database;

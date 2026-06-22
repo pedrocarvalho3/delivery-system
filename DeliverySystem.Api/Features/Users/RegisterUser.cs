@@ -1,7 +1,7 @@
-using DeliverySystem.Api.Users.Infrastructure;
+using DeliverySystem.Api.Features.Users.Infrastructure;
 using DeliverySystem.Database;
 
-namespace DeliverySystem.Api.Users;
+namespace DeliverySystem.Api.Features.Users;
 
 internal sealed class RegisterUser(AppDbContext context, PasswordHasher passwordHasher)
 {

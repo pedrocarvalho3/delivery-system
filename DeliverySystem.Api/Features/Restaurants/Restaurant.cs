@@ -1,6 +1,6 @@
-using DeliverySystem.Api.Users;
+using DeliverySystem.Api.Features.Users;
 
-namespace DeliverySystem.Features.Restaurants;
+namespace DeliverySystem.Api.Features.Restaurants;
 
 public class Restaurant
 {

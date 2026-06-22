@@ -1,7 +1,7 @@
 using System.Text;
-using DeliverySystem.Api.Users;
+using DeliverySystem.Api.Features.Users;
 using DeliverySystem.Database;
-using DeliverySystem.Api.Users.Infrastructure;
+using DeliverySystem.Api.Features.Users.Infrastructure;
 using DeliverySystem.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +36,13 @@ builder.Services.AddScoped<RegisterUser>();
 builder.Services.AddScoped<LoginUser>();
 
 var app = builder.Build();
+
+// using (var scope = app.Services.CreateScope())
+// {
+//     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+//
+//     await RestaurantSeeder.SeedAsync(context);
+// }
 
 app.UseHttpsRedirection();
 

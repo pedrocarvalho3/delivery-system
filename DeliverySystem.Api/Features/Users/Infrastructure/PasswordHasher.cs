@@ -1,6 +1,6 @@
 using System.Security.Cryptography;
 
-namespace DeliverySystem.Api.Users.Infrastructure;
+namespace DeliverySystem.Api.Features.Users.Infrastructure;
 
 internal sealed class PasswordHasher
 {

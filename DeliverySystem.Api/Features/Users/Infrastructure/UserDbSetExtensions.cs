@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace DeliverySystem.Api.Users.Infrastructure;
+namespace DeliverySystem.Api.Features.Users.Infrastructure;
 
 internal static class UserDbSetExtensions
 {

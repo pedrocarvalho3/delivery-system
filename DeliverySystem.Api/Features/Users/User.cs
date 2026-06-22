@@ -1,4 +1,4 @@
-namespace DeliverySystem.Api.Users;
+namespace DeliverySystem.Api.Features.Users;
 
 public class User
 {
