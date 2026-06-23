@@ -21,7 +21,7 @@ internal sealed class LoginUser(AppDbContext context, PasswordHasher passwordHas
 
         if (!verified)
         {
-            throw new Exception("The password is incorrect");
+            throw new Exception("Invalid Credentials.");
         }
 
         var token = tokenProvider.Create(user);
