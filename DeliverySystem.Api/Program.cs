@@ -47,6 +47,10 @@ builder.Services.AddScoped<LoginUser>();
 builder.Services.AddScoped<ListRestaurants>();
 
 builder.Services.AddScoped<RegisterProduct>();
+builder.Services.AddScoped<ListProducts>();
+builder.Services.AddScoped<UpdateProduct>();
+builder.Services.AddScoped<DeleteProduct>();
+builder.Services.AddScoped<SwitchProductAvailability>();
 
 var app = builder.Build();
 
