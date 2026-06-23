@@ -4,6 +4,7 @@ using DeliverySystem.Api.Features.Users;
 using DeliverySystem.Database;
 using DeliverySystem.Api.Features.Users.Infrastructure;
 using DeliverySystem.Extensions;
+using DeliverySystem.Features.Products;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -45,6 +46,8 @@ builder.Services.AddScoped<LoginUser>();
 
 builder.Services.AddScoped<ListRestaurants>();
 
+builder.Services.AddScoped<RegisterProduct>();
+
 var app = builder.Build();
 
 // using (var scope = app.Services.CreateScope())
@@ -64,5 +67,6 @@ app.UseAuthorization();
 
 UserEndpoints.Map(app);
 RestaurantEndpoints.Map(app);
+ProductEndpoints.Map(app); 
 
 app.Run();
