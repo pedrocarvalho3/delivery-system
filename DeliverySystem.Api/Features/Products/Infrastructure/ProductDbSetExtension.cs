@@ -6,6 +6,11 @@ internal static class ProductDbSetExtension
 {
     public static async Task<bool> Exists(this DbSet<Product> products, string name)
     {
-        return await products.AnyAsync();
+        return await products.AnyAsync(product => product.Name == name);
+    }
+
+    public static async Task<bool> Exists(this DbSet<Product> products, Guid id, string name)
+    {
+        return await products.AnyAsync(product => product.Id != id && product.Name == name);
     }
 }
