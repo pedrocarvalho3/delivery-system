@@ -2,7 +2,12 @@
   color: #1d2520;
   background: #fffaf3;
   font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
     sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -45,6 +50,12 @@ input {
   transform: translateY(-1px);
 }
 
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none;
+}
+
 .button-primary {
   background: #d9332f;
   color: #ffffff;
@@ -64,7 +75,11 @@ input {
 .public-page {
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(255, 216, 112, 0.35), transparent 32rem),
+    radial-gradient(
+      circle at top left,
+      rgba(255, 216, 112, 0.35),
+      transparent 32rem
+    ),
     #fffaf3;
 }
 
@@ -134,7 +149,11 @@ input {
   align-items: center;
   aspect-ratio: 1;
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(255, 245, 228, 0.98)),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.96),
+      rgba(255, 245, 228, 0.98)
+    ),
     #ffffff;
   border: 1px solid rgba(122, 101, 70, 0.14);
   border-radius: 8px;
@@ -267,8 +286,7 @@ input {
 .admin-page {
   align-items: center;
   background:
-    linear-gradient(140deg, rgba(217, 51, 47, 0.08), transparent 36rem),
-    #f7f4ef;
+    linear-gradient(140deg, rgba(217, 51, 47, 0.08), transparent 36rem), #f7f4ef;
   display: flex;
   justify-content: center;
   min-height: 100vh;
@@ -328,6 +346,30 @@ input {
 .admin-submit {
   margin-top: 8px;
   width: 100%;
+}
+
+.form-field input:disabled {
+  background: #f4f0ea;
+  cursor: not-allowed;
+}
+
+.form-message {
+  border-radius: 8px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0;
+  padding: 12px 14px;
+}
+
+.form-message-error {
+  background: #fff1f0;
+  color: #b42318;
+}
+
+.form-message-success {
+  background: #ecfdf3;
+  color: #067647;
 }
 
 @media (max-width: 760px) {

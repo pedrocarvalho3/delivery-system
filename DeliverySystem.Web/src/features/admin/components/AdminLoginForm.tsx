@@ -1,13 +1,32 @@
-import { FormEvent, useState } from 'react';
-import Button from '../../../components/Button.tsx';
+import { FormEvent, useState } from "react";
+import Button from "../../../components/Button.tsx";
+import { login } from "../../../services/authApi.ts";
 
 export default function AdminLoginForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log({ email, password });
+    setError("");
+    setSuccessMessage("");
+    setIsSubmitting(true);
+
+    try {
+      const token = await login({ email, password });
+      localStorage.setItem("accessToken", token);
+      setSuccessMessage("Signed in successfully.");
+      console.log({ email, token });
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Unable to sign in.";
+      setError(message);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -25,6 +44,7 @@ export default function AdminLoginForm() {
           onChange={(event) => setEmail(event.target.value)}
           placeholder="admin@example.com"
           autoComplete="email"
+          disabled={isSubmitting}
           required
         />
       </label>
@@ -37,9 +57,14 @@ export default function AdminLoginForm() {
           onChange={(event) => setPassword(event.target.value)}
           placeholder="Your password"
           autoComplete="current-password"
+          disabled={isSubmitting}
           required
         />
       </label>
+      {error && <p className="form-message form-message-error">{error}</p>}
+      {successMessage && (
+        <p className="form-message form-message-success">{successMessage}</p>
+      )}
 
       <Button type="submit" className="admin-submit">
         Sign in
