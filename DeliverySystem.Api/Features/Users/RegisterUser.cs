@@ -18,7 +18,6 @@ internal sealed class RegisterUser(AppDbContext context, PasswordHasher password
 
         var user = new User
         {
-            Id = Guid.NewGuid(),
             Email = request.Email,
             FirstName = request.FirstName,
             LastName = request.LastName,

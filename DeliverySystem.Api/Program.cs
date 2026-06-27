@@ -3,6 +3,7 @@ using DeliverySystem.Api.Features.Restaurants;
 using DeliverySystem.Api.Features.Users;
 using DeliverySystem.Database;
 using DeliverySystem.Api.Features.Users.Infrastructure;
+using DeliverySystem.Api.Seeders;
 using DeliverySystem.Extensions;
 using DeliverySystem.Features.Products;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -72,6 +73,13 @@ var app = builder.Build();
 //     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 //
 //     await RestaurantSeeder.SeedAsync(context);
+// }
+
+// using (var scope = app.Services.CreateScope())
+// {
+//     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+//
+//     await ProductSeeder.SeedAsync(context);
 // }
 
 app.UseHttpsRedirection();
