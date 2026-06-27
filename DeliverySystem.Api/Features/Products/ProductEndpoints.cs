@@ -10,9 +10,9 @@ public class ProductEndpoints
         {
             var request = new ListProducts.Request(pageNumber, pageSize);
             
-            var products = await useCase.Handle(request);
+            var response = await useCase.Handle(request);
 
-            return Results.Ok(products);
+            return Results.Ok(response);
         })
         .WithTags(Tag)
         .RequireAuthorization();
