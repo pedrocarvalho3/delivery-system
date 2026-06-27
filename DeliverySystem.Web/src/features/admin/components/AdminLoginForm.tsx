@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import Button from "../../../components/Button.tsx";
 import { login } from "../../../services/authApi.ts";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminLoginForm() {
   const [email, setEmail] = useState("");
@@ -8,6 +9,8 @@ export default function AdminLoginForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+
+  const navigate = useNavigate();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -19,7 +22,7 @@ export default function AdminLoginForm() {
       const token = await login({ email, password });
       localStorage.setItem("accessToken", token);
       setSuccessMessage("Signed in successfully.");
-      console.log({ email, token });
+      navigate("/admin/dashboard");
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "Unable to sign in.";
