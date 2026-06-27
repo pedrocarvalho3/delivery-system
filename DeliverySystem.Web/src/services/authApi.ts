@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "../config/api";
+import { apiClient } from "./apiClient.ts";
 
 type LoginRequest = {
   email: string;
@@ -6,19 +6,15 @@ type LoginRequest = {
 };
 
 export async function login(request: LoginRequest) {
-  const response = await fetch(`${API_BASE_URL}/users/login`, {
+  const response = await apiClient("/users/login", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    authorized: false,
     body: JSON.stringify(request),
   });
 
   if (!response.ok) {
     throw new Error("Invalid Credentials");
   }
-
-  console.log(response);
 
   return response.text();
 }

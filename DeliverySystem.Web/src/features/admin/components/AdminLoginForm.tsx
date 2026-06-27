@@ -1,7 +1,8 @@
 import { FormEvent, useState } from "react";
 import Button from "../../../components/Button.tsx";
 import { login } from "../../../services/authApi.ts";
-import { useNavigate } from "react-router-dom";
+import { saveAccessToken } from "../../../services/authToken.ts";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function AdminLoginForm() {
   const [email, setEmail] = useState("");
@@ -11,6 +12,9 @@ export default function AdminLoginForm() {
   const [successMessage, setSuccessMessage] = useState("");
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const redirectTo =
+    (location.state as { from?: string } | null)?.from ?? "/admin/dashboard";
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -20,9 +24,9 @@ export default function AdminLoginForm() {
 
     try {
       const token = await login({ email, password });
-      localStorage.setItem("accessToken", token);
+      saveAccessToken(token);
       setSuccessMessage("Signed in successfully.");
-      navigate("/admin/dashboard");
+      navigate(redirectTo, { replace: true });
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "Unable to sign in.";
@@ -69,8 +73,8 @@ export default function AdminLoginForm() {
         <p className="form-message form-message-success">{successMessage}</p>
       )}
 
-      <Button type="submit" className="admin-submit">
-        Sign in
+      <Button type="submit" className="admin-submit" disabled={isSubmitting}>
+        {isSubmitting ? "Signing in..." : "Sign in"}
       </Button>
     </form>
   );
