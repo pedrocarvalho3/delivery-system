@@ -6,10 +6,16 @@ public class ProductEndpoints
 
     public static IEndpointRouteBuilder Map(IEndpointRouteBuilder builder)
     {
-        builder.MapGet("products", async (ListProducts useCase) =>
-                await useCase.Handle())
-            .WithTags(Tag)
-            .RequireAuthorization();
+        builder.MapGet("products", async (ListProducts useCase, int pageNumber, int pageSize) =>
+        {
+            var request = new ListProducts.Request(pageNumber, pageSize);
+            
+            var products = await useCase.Handle(request);
+
+            return Results.Ok(products);
+        })
+        .WithTags(Tag)
+        .RequireAuthorization();
 
         builder.MapPost("products/register", async (RegisterProduct.Request request, RegisterProduct useCase) =>
             {

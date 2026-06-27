@@ -5,6 +5,8 @@ namespace DeliverySystem.Features.Products;
 
 internal sealed class ListProducts(AppDbContext context)
 {
+    public sealed record Request(int PageNumber, int PageSize);
+    
     public sealed record Response(
         Guid Id,
         string Name,
@@ -13,10 +15,16 @@ internal sealed class ListProducts(AppDbContext context)
         bool IsAvailable,
         DateTime CreatedAt);
 
-    public async Task<List<Response>> Handle()
+    public async Task<List<Response>> Handle(Request request)
     {
+        var pageNumber = request.PageNumber < 1 ? 1 : request.PageNumber;
+        var pageSize = request.PageSize < 1 ? 10 : request.PageSize;
+
         return await context.Products
             .AsNoTracking()
+            .OrderBy(p => p.Name)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
             .Select(product => new Response(
                 product.Id,
                 product.Name,
