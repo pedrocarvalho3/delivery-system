@@ -284,7 +284,6 @@ input {
 }
 
 .admin-page {
-  align-items: center;
   background:
     linear-gradient(140deg, rgba(217, 51, 47, 0.08), transparent 36rem), #f7f4ef;
   display: flex;
@@ -294,8 +293,19 @@ input {
   position: relative;
 }
 
+.admin-header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+
+  width: 100vw;
+}
+
+admin-back-button {
+}
+
 .admin-back-link {
-  left: 24px;
+  right: 24px;
   position: absolute;
   top: 24px;
 }
